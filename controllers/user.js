@@ -12,7 +12,19 @@ class UserController {
 
     // butuh validasi sudah ada usernya atau belum
     // duplikasi email masih diperbolehkan
-    User.create(newUser)
+    User.findOne({
+      where: {
+        email: email,
+      },
+    })
+      .then((user) => {
+        if (user) {
+          const error = new Error("This email is already existing");
+          error.statusCode = 400;
+          throw error;
+        }
+        return User.create(newUser);
+      })
       .then((user) => {
         res.status(201).json({
           success: true,
