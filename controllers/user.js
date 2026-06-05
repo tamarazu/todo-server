@@ -10,8 +10,6 @@ class UserController {
     const { name, email, password } = req.body;
     const newUser = { name, email, password };
 
-    // butuh validasi sudah ada usernya atau belum
-    // duplikasi email masih diperbolehkan
     User.findOne({
       where: {
         email: email,
@@ -19,9 +17,10 @@ class UserController {
     })
       .then((user) => {
         if (user) {
-          const error = new Error("This email is already existing");
-          error.statusCode = 400;
-          throw error;
+          return res(400).json({
+            success: false,
+            message: "This email already exist",
+          });
         }
         return User.create(newUser);
       })
