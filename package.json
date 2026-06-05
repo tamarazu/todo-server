@@ -19,15 +19,15 @@
   },
   "homepage": "https://github.com/tamarazu/todo-server#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^1.17.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "google-auth-library": "^5.10.1",
-    "googleapis": "^39.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^7.18.2",
-    "sequelize": "^5.21.5"
+    "google-auth-library": "^10.7.0",
+    "googleapis": "^173.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.21.0",
+    "sequelize": "^6.37.8"
   }
 }
