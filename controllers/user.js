@@ -70,32 +70,30 @@ class UserController {
           } else {
             next({
               status: 400,
-              message: "email/password wrong!",
+              message: "email or password wrong!",
             });
           }
         } else {
           next({
             status: 400,
-            message: "email/password wrong!",
+            message: "email or password wrong!",
           });
         }
       })
       .catch(next);
   }
 
+  // ================ Fixing later ==================
   static googleSignIn(req, res, next) {
     let payload;
-    console.log(client);
     client
       .verifyIdToken({
         idToken: req.headers.token_google,
         audience: CLIENT_ID,
       })
       .then((ticket) => {
-        // console.log('masuk payload')
         payload = ticket.getPayload();
         let email = payload.email;
-        console.log(email);
         return User.findOne({
           where: {
             email,
@@ -104,7 +102,6 @@ class UserController {
       })
       .then((user) => {
         if (user) {
-          console.log(user);
           return user;
           // console.log('ini masuk do access_token awal')
           // let userGoogle ={
@@ -117,9 +114,6 @@ class UserController {
           //     data: 'ok'
           // })
         } else {
-          console.log("ga ketemu usernyaaaa");
-          // console.log(email)
-          console.log(process.env.PWD);
           return User.create({
             name: payload.name,
             email: payload.email,
@@ -128,7 +122,6 @@ class UserController {
         }
       })
       .then((user) => {
-        console.log(user, "INI USERRRR +++++++++++++++++++++++++++++++++");
         let access_token = generateToken({
           id: user.id,
           email: user.email,
