@@ -17,7 +17,7 @@ class UserController {
     })
       .then((user) => {
         if (user) {
-          return res(400).json({
+          return res.status(400).json({
             success: false,
             message: "This email already exist",
           });
@@ -48,18 +48,26 @@ class UserController {
       },
     })
       .then((user) => {
+        const { id, name, email, password: verifyPassword } = user;
         if (user) {
-          if (comparePassword(password, user.password) === true) {
+          if (comparePassword(password, verifyPassword) === true) {
             let payload = {
-              id: user.id,
-              email: user.email,
+              id,
+              email,
             };
             let access_token = generateToken(payload);
             res.status(200).json({
+              success: true,
               access_token,
+              data: {
+                user: {
+                  id,
+                  name,
+                  email,
+                },
+              },
             });
           } else {
-            console.log("SALAH PASSWORD BENER=============");
             next({
               status: 400,
               message: "email/password wrong!",
