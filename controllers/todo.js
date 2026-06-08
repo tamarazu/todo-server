@@ -1,5 +1,6 @@
 const { Todo } = require("../models");
 
+console.log("masuk ke sini ====================");
 class TodoController {
   static create(req, res, next) {
     const { title, description, status, due_date } = req.body;

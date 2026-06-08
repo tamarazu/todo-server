@@ -1,20 +1,29 @@
-const { checkToken } = require('../helpers/jwt')
-const { User } = require('../models')
+const { checkToken } = require("../helpers/jwt");
+const { User } = require("../models");
+
 module.exports = (req, res, next) => {
-    try {
-        const decoded = checkToken(req.headers.access_token)
-        User
-            .findOne({
-                where: {
-                    email: decoded.email
-                }
-            })
-            .then(user => {
-                req.currentUserId = decoded.id
-                next()
-            })
-            .catch(next)
-    } catch {
-        next(err)
+  try {
+    if (!req.headers.access_token) {
+      let errors;
+      errors.status = 401;
+      next({
+        status: 401,
+        success: false,
+        message: "Invalid authentication",
+      });
     }
-}
+    const decoded = checkToken(req.headers.access_token);
+    User.findOne({
+      where: {
+        email: decoded.email,
+      },
+    })
+      .then((user) => {
+        req.currentUserId = decoded.id;
+        next();
+      })
+      .catch(next);
+  } catch {
+    next(err);
+  }
+};
