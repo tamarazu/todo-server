@@ -5,8 +5,7 @@ module.exports = (req, res, next) => {
   try {
     if (!req.headers.access_token) {
       let errors;
-      errors.status = 401;
-      next({
+      errors.status = next({
         status: 401,
         success: false,
         message: "Invalid authentication",

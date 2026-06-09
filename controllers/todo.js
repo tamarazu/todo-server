@@ -1,11 +1,11 @@
 const { Todo } = require("../models");
 
-console.log("masuk ke sini ====================");
 class TodoController {
   static create(req, res, next) {
     const { title, description, status, due_date } = req.body;
     const newTodo = { title, description, status, due_date };
-    newTodo.UserId = req.currentUserId;
+    newTodo.user_id = req.currentUserId;
+    console.log(newTodo);
     Todo.create(newTodo)
       .then((todo) => {
         res.status(201).json(todo);
@@ -15,7 +15,7 @@ class TodoController {
   static findAll(req, res, next) {
     Todo.findAll({
       where: {
-        UserId: req.currentUserId,
+        user_id: req.currentUserId,
       },
     })
       .then((todos) => {
