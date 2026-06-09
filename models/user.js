@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Todo);
+      User.hasMany(models.Todo, {
+        foreignKey: "user_id",
+      });
     }
   }
   User.init(

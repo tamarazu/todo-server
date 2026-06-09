@@ -2,6 +2,7 @@ const { checkToken } = require("../helpers/jwt");
 const { User } = require("../models");
 
 module.exports = (req, res, next) => {
+  console.log("masuk auth");
   try {
     if (!req.headers.access_token) {
       let errors;

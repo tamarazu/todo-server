@@ -3,7 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
   class Todo extends Model {
     static associate(models) {
-      Todo.belongsTo(models.User);
+      Todo.belongsTo(models.User, {
+        foreignKey: "user_id",
+      });
     }
   }
   Todo.init(
