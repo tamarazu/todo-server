@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
       if (todo.user_id === req.currentUserId) {
         next();
       } else {
-        console.log(req.currentUserId);
         next({
           status: 401,
           message: "authorization is failed",

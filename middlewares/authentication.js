@@ -2,7 +2,6 @@ const { checkToken } = require("../helpers/jwt");
 const { User } = require("../models");
 
 module.exports = (req, res, next) => {
-  console.log("masuk auth");
   try {
     if (!req.headers.access_token) {
       let errors;
@@ -19,6 +18,13 @@ module.exports = (req, res, next) => {
       },
     })
       .then((user) => {
+        if (!user) {
+          return next({
+            status: 401,
+            success: false,
+            message: "Invalid authentication",
+          });
+        }
         req.currentUserId = decoded.id;
         next();
       })
