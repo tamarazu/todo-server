@@ -48,8 +48,8 @@ class UserController {
       },
     })
       .then((user) => {
-        const { id, name, email, password: verifyPassword } = user;
         if (user) {
+          const { id, name, email, password: verifyPassword } = user;
           if (comparePassword(password, verifyPassword) === true) {
             let payload = {
               id,
@@ -70,13 +70,13 @@ class UserController {
           } else {
             next({
               status: 400,
-              message: "email or password wrong!",
+              message: "Email or password wrong!",
             });
           }
         } else {
           next({
             status: 400,
-            message: "email or password wrong!",
+            message: "User not registered",
           });
         }
       })
