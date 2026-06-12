@@ -43,7 +43,7 @@ class TodoController {
         id: id,
       },
     })
-      .then((todo) => {
+      .then(() => {
         return Todo.findOne({
           where: {
             id: id,
@@ -72,7 +72,10 @@ class TodoController {
         });
       })
       .then((todo) => {
-        res.status(200).json(todoDeleted);
+        res.status(200).json({
+          success: true,
+          message: "Todo successfully deleted",
+        });
       })
       .catch(next);
   }
