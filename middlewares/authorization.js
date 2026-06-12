@@ -7,7 +7,12 @@ module.exports = (req, res, next) => {
     },
   })
     .then((todo) => {
-      if (todo.user_id === req.currentUserId) {
+      if (!todo) {
+        next({
+          status: 400,
+          message: "todo is not found",
+        });
+      } else if (todo.user_id === req.currentUserId) {
         next();
       } else {
         next({

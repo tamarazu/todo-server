@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
             message: "Invalid authentication",
           });
         }
-        req.currentUserId = decoded.id;
+        req.currentUserId = user.id;
         next();
       })
       .catch(next);
